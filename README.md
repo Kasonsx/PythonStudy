@@ -1,1 +1,2 @@
 # PythonStudy
+mysite文件夹为Django官方tutorial项目实践
