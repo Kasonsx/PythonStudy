@@ -38,13 +38,12 @@
 # number = 0
 
 # class Person:
-	
+
 # 	def __init__(self, name, sex):
 # 		self.name = name
 # 		self.sex = sex
 
 # 	def add_person(self):
-
 
 # p1 = Person('K', 'male')
 # p2 = Person('S', 'female')
@@ -56,7 +55,7 @@
 
 # brief tour of the standard library
 
-import os 
+import os
 # print(os.getcwd())
 # os.chdir('/test') #改变当前工作目录
 # os.system('mkdir today') # 运行命令
@@ -91,16 +90,14 @@ from urllib.request import urlopen
 # 		if 'EST' in line or 'EDT' in line:
 # 			print(line)
 
-from email import encoders
 from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
-
 import smtplib
+'''def format_addr(s):
+    name, addr = parseaddr(s)
+    return formataddr((Header(name, 'utf-8').encode(), addr))
 
-def format_addr(s):
-	name, addr = parseaddr(s)
-	return formataddr((Header(name, 'utf-8').encode(), addr))
 
 from_addr = 'sxk644653293@163.com'
 password = input('Password:')
@@ -116,4 +113,54 @@ server = smtplib.SMTP(stmp_server, 25)
 server.set_debuglevel(1)
 server.login(from_addr, password)
 server.sendmail(from_addr, [to_addr], msg.as_string())
-server.quit()
+server.quit()'''
+
+# 时间
+from datetime import date
+# now = date.today()
+# print(now)
+# print(now.strftime("%Y %b %d %A"))
+
+# birthday = date(1994, 2, 2)
+# age = now - birthday
+# print(age.days)
+
+# 数据压缩
+import zlib
+# s = b'witch which has which witches wrist watch'
+# print(len(s))
+# t = zlib.compress(s)
+# print(len(t))
+# print(t)
+# zlib.decompress(t)
+
+# 性能测量
+from timeit import Timer
+# print(Timer('t=a; a=b; b=t', 'a=1; b=2').timeit())
+# print(Timer('a, b = b, a', 'a=1; b=2').timeit())
+
+import doctest
+# def average(values):
+# 	"""Computes the arithmetic mean of a list of numbers. 
+
+# 	>>> print(average([20, 30, 70])) 
+# 	40.0 
+# 	"""
+# 	return sum(values)/len(values)
+
+# doctest.testmod()
+
+import unittest
+# class TestStatisticalFunctions(unittest.TestCase):
+# 	def test_average(self):
+# 		self.assertEqual(average([20,30,70]),40.0)
+# 		self.assertEqual(round(average([1,5,7]), 1),4.3)
+# 		with self.assertRaises(ZeroDivisionError):
+# 			average([])
+# 		with self.assertRaises(TypeError):
+# 			average(20,30,70)
+# unittest.main()
+
+# xmlrpc.client
+
+from array import array
