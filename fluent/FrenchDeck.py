@@ -12,10 +12,10 @@ class FrenchDeck:
         ]
 
     def __len__(self):
-        return len(self._cards)
+            return len(self._cards)
 
     def __getitem__(self, position):
-        return self._cards[position]
+            return self._cards[position]
 
 
 beer_card = Card('7', 'diamonds')
