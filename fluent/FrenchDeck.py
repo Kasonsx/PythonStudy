@@ -23,3 +23,5 @@ print(beer_card)
 
 deck = FrenchDeck()
 print(len(deck))
+print(deck[0])
+print(deck[-1])
