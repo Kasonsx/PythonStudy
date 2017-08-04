@@ -14,8 +14,9 @@ def response(msg):#robot reply
 	except:
 		print('server has encountered a problem.')
 
-result = (response("肇庆天气"))
-print( "{0}\n{1}".format(result.get('text'),result.get('url')))
+result = (response("深圳"))
+print(result)
+#print( "{0}\n{1}".format(result.get('text'),result.get('url')))
 
 # 新闻类 
 # {'url': 'http://m.toutiao.com/#channel=', 'code': 200000, 'text': '亲，已帮你找到新闻信息'}
