@@ -58,10 +58,32 @@ for name, cc, pop, (latitude, longitude) in metro_areas:
 	if longitude <= 0:
 		print(fmt.format(name, latitude, longitude))
 
-# 具名元组collectons.namedtple
+# 具名元组collectons.namedtuple
 # Card = collections.namedtuple('Card', ['rank','suit'])
 from collections import namedtuple
-City = namedtuple('City', 'name country population coordinates')
-tokyo = City('Tokyo', 'JP', 36.933, (35.689722, 139.691667))
+City = namedtuple('City', 'name country population coordinates')#➊
+tokyo = City('Tokyo', 'JP', 36.933, (35.689722, 139.691667))#➋
 print(tokyo)
-# 
+# namedtuple(typename, field_names, *, verbose=False, rename=False, module=None)
+# The field_names are a sequence of strings such as ['x', 'y'].
+# Alternatively,field_names can be a single string with each fieldname
+# separated by whitespace and/or commas, for example 'x y' or 'x, y'.
+#➊可以是由数个字符串组成的可迭代对象，或是由空格分隔开的字段名组成的字符串
+#➋注意，元组的构造函数只接受单一的可迭代对象
+print(tokyo.population,tokyo[1])
+# 可以通过字段名或位置来获取一个字段信息
+print(City._fields)
+# Result：('name', 'country', 'population', 'coordinates')
+# _fields属性是一个包含这个类所有字段名称的元组
+LatLong = namedtuple('LatLong', 'lat long')
+delhi_data = ('Delhi NCR', 'IN', 21.935, LatLong(28.613889, 77.208889))
+delhi =City._make(delhi_data)
+# 用_make()通过接受一个可迭代对象来生成这个类的一个实例，
+# 相当于City(*delhi_data)
+print(delhi._asdict())
+# Result: OrderedDict([('name', 'Delhi NCR'), ('country', 'IN'), ('population', 21.935), ('coordinates', LatLong(lat=28.613889, long=77.208889))])
+# _asdict()把具名元组以collections.OrderedDict的形式返回
+for key, value in delhi._asdict().items():
+	print(key + ':' , value)
+
+#作为不可变列表的元组
