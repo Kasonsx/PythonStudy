@@ -16,7 +16,7 @@ if __name__ == '__main__':
 	if sys.argv[-1] == 'left':
 		bisect_fn = bisect.bisect_left
 	else:
-		bisect_fn = bisect.bisect
+		bisect_fn = bisect.bisect#即bisect_right
 
 	print('DEMO:',bisect_fn.__name__)
 	print('haystack ->', ' '.join('%2d' % n for n in haystack))
