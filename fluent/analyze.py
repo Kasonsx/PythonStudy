@@ -47,12 +47,12 @@ for line in lineNames:
 with codecs.open('node.txt','w','gbk') as f:
 	f.write("ID Label Weight\r\n")
 	for name,times in names.items():
-		if times >= 30:
+		if times >= 20:
 			f.write(name + " " + name + " " + str(times) + "\r\n")
 
 with codecs.open("edge.txt", "w", "gbk") as f:
 	f.write("Source Target Weight\r\n")
 	for name, edges in relationships.items():
 		for v,w in edges.items():
-			if w > 3:
+			if w > 10:
 				f.write(name + " " + v + " " + str(w) + "\r\n")
