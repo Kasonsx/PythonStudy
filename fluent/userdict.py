@@ -29,3 +29,7 @@ print(d_proxy[1])
 d_proxy[2] = 'x'#报错，不能修改
 d[2] = 'B'
 print(d_proxy)
+#mappingproxy({1: 'A', 2: 'B'})
+# d_proxy是动态的，对d所做的改动都会反馈到它上
+# 应用：将d设为私有，可以修改
+# d_proxy设为公开并保留给客户，客户无法对d_proxy做任何改动
