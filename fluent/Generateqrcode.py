@@ -19,3 +19,4 @@ def generate(data):#貌似只能接受字符串，网址链接需要用双引号
 if __name__ == '__main__':
 	import sys
 	generate(*sys.argv[1:])
+	
