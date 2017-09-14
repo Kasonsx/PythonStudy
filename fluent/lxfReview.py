@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # liaoxuefeng python review
 n = 123
 f = 456.789
@@ -30,3 +31,14 @@ elif bmi <= 32:
 	print('肥胖')
 else:
 	print('严重肥胖')
+
+L = ['Bart', 'Lisa', 'Adam']
+# for name in L:
+# 	print('Hello, {0}!'.format(name))
+print([n for n in range(101) if n%2 == 0 and n<10])
+
+d = {}
+d['asd'] = 'asd'
+print(d)
+
+print(hex(255))
