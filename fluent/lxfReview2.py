@@ -9,3 +9,8 @@ def quadratic(a,b,c):
 # print(quadratic(1,3,-4))
 assert quadratic(2,3,1) == (-0.5, -1.0), "正确"
 assert quadratic(1,3,-4) == (1.0, -4.0), '正确'
+
+def student(name, sex, addr='SZ', **score):
+	print(name,sex,addr,score)
+
+student('k','male', chinese=90, math=98)

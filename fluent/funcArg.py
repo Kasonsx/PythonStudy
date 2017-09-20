@@ -25,3 +25,10 @@ person3('k', 23, city='sz', job='it')
 def person4(name, age, *arg, city, job):
 	print(name, age, arg, city, job)
 person4('k', 23,city='sz',job='it')
+
+# 参数组合，参数定义顺序应为：
+# 必选参数、默认参数、可变参数、命名关键字参数和关键字参数
+def f1(a, b, c=0, *args, **kw):
+	pass
+def f2(a, b, c=0, *, d, **kw):
+	pass
