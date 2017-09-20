@@ -58,11 +58,14 @@ def downloadImage(url):
 	# 	num += 1
 	# print('当前页有',error,'张图片下载失败！')
 	# 获取下一页地址
-	nextpage = sel.xpath('//div[@class="pagination"]/a[@class="next_page"]/@href').extract()[0]
-	if nextpage:
-		next_url = 'https://yande.re' + nextpage
-		print(next_url)
-		downloadImage(next_url)
+	try:
+		nextpage = sel.xpath('//div[@class="pagination"]/a[@class="next_page"]/@href').extract()[0]
+		if nextpage:
+			next_url = 'https://yande.re' + nextpage
+			print(next_url)
+			downloadImage(next_url)
+	except IndexError:
+		print("没有下一页了！")
 # 保存图片链接
 def saveUrls(imageurls):
 	with open('ImageURLs.txt','a+') as f:
