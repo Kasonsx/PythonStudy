@@ -8,6 +8,7 @@ class AuthorSpider(scrapy.Spider):
 	def parse(self, response):
 		# follow links to author pages
 		for href in response.css('.author + a::attr(href)'):
+		# +表示选择所有author紧接着的a
 			yield response.follow(href, self.parse_author)
 		# follow pagination links
 		for href in response.css('li.next a::attr(href)'):
