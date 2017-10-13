@@ -27,6 +27,8 @@ def url_request(url):
 			return sel
 	except requests.exceptions.ConnectionError:
 		print("网络连接失败！")
+	except requests.execptions.ReadTimeout:
+		print("连接超时！")
 			
 def get_img(url):
 	selector = url_request(url)
@@ -34,21 +36,21 @@ def get_img(url):
 	num = 1
 	for img in selector.xpath('//li[@class="image-item"]/a[@style="display:block"]/@href').extract():
 		img_url = "https://www.pixiv.net/" + img
-		print(num," ",img_url)
+		#print(num," ",img_url)
 		img = url_request(img_url).xpath('//div[@class="_layout-thumbnail ui-modal-trigger"]/img/@src').extract_first()
 		if img is not None:
 			img = img.replace('c/600x600/img-master', 'img-original')
 			img = img.replace('_master1200', '')
-			#print(img)
+			print(img)
 			imageurls.append(img)
 			
 		else:
 			multiurls = "https://www.pixiv.net/" + url_request(img_url).xpath('//div[@class="works_display"]/a[@class=" _work multiple "]/@href').extract_first()
-			print(multiurls)
+			#print(multiurls)
 			for img_ in url_request(multiurls).xpath('//div[@class="item-container"]/img/@data-src').extract():
 				img_ = img_.replace('img-master', 'img-original')
 				img_ = img_.replace('_master1200', '')
-				#print(img_)
+				print(img_)
 				imageurls.append(img_)
 		num += 1
 	return imageurls
@@ -57,6 +59,31 @@ def saveUrls(imageurls):
 	with open('ImageURLs.txt','a+') as f:
 		for i in imageurls:
 			f.write(i + "\r\n")
+
+def nextpage(url):
+	selector = url_request(url)
+	next_page = selector.xpath('//span[@class="next"]/a/@href').extract_first()
+	nexturl = ""
+	if next_page is not None:
+		nexturl = "https://www.pixiv.net/bookmark.php" + next_page
+		print(nexturl)
+	else:
+		print("没有下一页了！")
+	return nexturl
+
+def justSaveUrls(url):
+	num = 1
+	while(url):
+		imageurls = get_img(url)
+		saveUrls(imageurls)
+		url = nextpage(url)
+		print("完成第%s页保存" % num)
+		num += 1 
+
+	print("保存链接完成！")
+
+def onepage_urls(url):
+	saveUrls(get_img(url))
 
 def downloadImage(url):
 	imageurls = get_img(url)
@@ -76,6 +103,9 @@ def downloadImage(url):
 		print("已下载好", filename)
 
 if __name__ == '__main__':
-	downloadImage(url)
-	print('下载完成')
+	# downloadImage(url)
+	# justSaveUrls(url) #保存收藏的所有链接
+	testurl = 'https://www.pixiv.net/bookmark.php?rest=show&p=7'
+	onepage_urls(url) #保存特定页的链接
+	# print('下载完成')
 
