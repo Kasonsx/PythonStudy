@@ -1,4 +1,3 @@
-#pixiv
 # -*- coding: utf-8 -*-
 #pixiv网下载账号收藏图片爬虫
 import requests
@@ -40,16 +39,16 @@ def get_img(url):
 		if img is not None:
 			img = img.replace('c/600x600/img-master', 'img-original')
 			img = img.replace('_master1200', '')
-			print(img)
+			#print(img)
 			imageurls.append(img)
 			
 		else:
 			multiurls = "https://www.pixiv.net/" + url_request(img_url).xpath('//div[@class="works_display"]/a[@class=" _work multiple "]/@href').extract_first()
 			print(multiurls)
-			for img_ in url_request(multiurls).xpath('//div[@class="item-container"]/img/@src').extract():
+			for img_ in url_request(multiurls).xpath('//div[@class="item-container"]/img/@data-src').extract():
 				img_ = img_.replace('img-master', 'img-original')
 				img_ = img_.replace('_master1200', '')
-				print(img_)
+				#print(img_)
 				imageurls.append(img_)
 		num += 1
 	return imageurls
@@ -62,16 +61,19 @@ def saveUrls(imageurls):
 def downloadImage(url):
 	imageurls = get_img(url)
 	#下载图片
-	# for img in imageurls:
-	# 	try:
-	# 		image = requests.get(img, headers=headers, timeout=10)
-	# 	except requests.exceptions.ConnectionError:
-	# 		img = img.replace('.jpg', '.png')
-	# 		image = requests.get(img, headers=headers, timeout=10)
-	# 	filename = img.split('/')[-1]
-	# 	with open(filename, 'wb') as f:
-	# 		f.write(image.content)
-	# 	print("已下载好", filename)
+	for img in imageurls:
+		try:
+			image = requests.get(img, headers=headers, timeout=10)
+			if image.status_code != 200:
+				img = img.replace('.jpg', '.png')
+				image = requests.get(img, headers=headers, timeout=10)
+		except:
+			print("图片链接有误")
+			
+		filename = img.split('/')[-1]
+		with open(filename, 'wb') as f:
+			f.write(image.content)
+		print("已下载好", filename)
 
 if __name__ == '__main__':
 	downloadImage(url)
