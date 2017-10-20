@@ -18,6 +18,7 @@ headers = {
 	'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 }
 
+# 获取网页的selector用于xpath检索
 def url_request(url):
 	try:
 		response = requests.get(url, headers=headers, timeout=10)
@@ -29,7 +30,8 @@ def url_request(url):
 		print("网络连接失败！")
 	except requests.execptions.ReadTimeout:
 		print("连接超时！")
-			
+
+# 获取页面中所有图片的原图链接，默认jpg格式（部分原图为png需另外处理）
 def get_img(url):
 	selector = url_request(url)
 	imageurls = []
@@ -55,11 +57,13 @@ def get_img(url):
 		num += 1
 	return imageurls
 
+# 将获取的链接保存在本地文件中
 def saveUrls(imageurls):
 	with open('ImageURLs.txt','a+') as f:
 		for i in imageurls:
 			f.write(i + "\r\n")
 
+# 跳转下一页
 def nextpage(url):
 	selector = url_request(url)
 	next_page = selector.xpath('//span[@class="next"]/a/@href').extract_first()
@@ -85,6 +89,7 @@ def justSaveUrls(url):
 def onepage_urls(url):
 	saveUrls(get_img(url))
 
+# 下载图片，将原图为png格式的进行转化
 def downloadImage(url):
 	imageurls = get_img(url)
 	#下载图片
