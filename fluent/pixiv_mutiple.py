@@ -19,3 +19,6 @@ headers = {
 z = requests.get(url, headers=headers)
 print(z.content)
 
+#what the fuck!
+namelist = [{name:'kj'},{name:'sjhadjs'},{name:'asdhas'}]
+print('kj,sjhadjs & asdhas')
